@@ -19,4 +19,6 @@ public interface MeteoRepository extends MongoRepository<MeteoData, String> {
     void deleteById(String id);
 
     boolean existsById(String id);
+
+    List<MeteoData> findByTimestampBetween(LocalDateTime start, LocalDateTime end);
 }

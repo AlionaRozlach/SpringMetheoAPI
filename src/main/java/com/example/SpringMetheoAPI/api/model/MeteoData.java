@@ -3,10 +3,13 @@ package com.example.SpringMetheoAPI.api.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "meteoData")
 public class MeteoData {
     @Id
     private String id;
+    private LocalDateTime timestamp;
     private Temperature temperature;
     private Humidity humidity;
     private WindSpeed windSpeed;
@@ -17,6 +20,14 @@ public class MeteoData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Temperature getTemperature() {

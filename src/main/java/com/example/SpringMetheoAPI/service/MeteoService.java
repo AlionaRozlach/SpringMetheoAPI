@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,5 +30,9 @@ public class MeteoService {
     public MeteoData getMeteoDataById(String id) {
         return meteoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "MeteoData not found with id: " + id));
+    }
+
+    public List<MeteoData> getMeteoDataByTimeInterval(LocalDateTime start, LocalDateTime end) {
+        return meteoRepository.findByTimestampBetween(start, end);
     }
 }
