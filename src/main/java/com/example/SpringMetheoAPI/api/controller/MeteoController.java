@@ -3,6 +3,7 @@ package com.example.SpringMetheoAPI.api.controller;
 import com.example.SpringMetheoAPI.api.model.MeteoData;
 import com.example.SpringMetheoAPI.api.repository.MeteoRepository;
 import com.example.SpringMetheoAPI.service.MeteoService;
+import com.example.SpringMetheoAPI.simulator.MeteoSimulator;
 import com.example.SpringMetheoAPI.utils.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +22,10 @@ public class MeteoController {
 
     @Autowired
     private MeteoRepository meteoDataRepository;
+
+    @Autowired
+    private MeteoSimulator weatherSimulator;
+
 
     @PostMapping("/save")
     public MeteoData saveMeteoData(@RequestBody MeteoData meteoData) {
@@ -62,5 +67,10 @@ public class MeteoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/simulate")
+    public MeteoData simulateWeatherData() {
+        return weatherSimulator.generateWeatherData();
     }
 }

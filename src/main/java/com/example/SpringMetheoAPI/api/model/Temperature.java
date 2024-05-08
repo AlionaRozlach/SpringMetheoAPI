@@ -3,6 +3,10 @@ package com.example.SpringMetheoAPI.api.model;
 public class Temperature {
     private double value;
 
+    public Temperature(double value) {
+        this.value = value;
+    }
+
     public double getValue() {
         return value;
     }

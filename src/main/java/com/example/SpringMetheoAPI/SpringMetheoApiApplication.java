@@ -1,7 +1,9 @@
 package com.example.SpringMetheoAPI;
 
+import com.example.SpringMetheoAPI.simulator.MeteoSimulator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SpringMetheoApiApplication {
@@ -10,4 +12,8 @@ public class SpringMetheoApiApplication {
 		SpringApplication.run(SpringMetheoApiApplication.class, args);
 	}
 
+	@Bean
+	public MeteoSimulator weatherSimulator() {
+		return new MeteoSimulator();
+	}
 }

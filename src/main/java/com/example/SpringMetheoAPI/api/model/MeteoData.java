@@ -14,6 +14,14 @@ public class MeteoData {
     private Humidity humidity;
     private WindSpeed windSpeed;
 
+    public MeteoData(String id, LocalDateTime timestamp, Temperature temperature, Humidity humidity, WindSpeed windSpeed) {
+        this.id = id;
+        this.timestamp = timestamp;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.windSpeed = windSpeed;
+    }
+
     public String getId() {
         return id;
     }
