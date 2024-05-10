@@ -1,4 +1,4 @@
-package com.example.SpringMetheoAPI.api.model;
+package com.example.SpringMetheoAPI.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

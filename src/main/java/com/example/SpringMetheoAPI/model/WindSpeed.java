@@ -1,9 +1,9 @@
-package com.example.SpringMetheoAPI.api.model;
+package com.example.SpringMetheoAPI.model;
 
-public class Temperature {
+public class WindSpeed {
     private double value;
 
-    public Temperature(double value) {
+    public WindSpeed(double value) {
         this.value = value;
     }
 

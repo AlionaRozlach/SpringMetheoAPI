@@ -11,9 +11,4 @@ public class SpringMetheoApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringMetheoApiApplication.class, args);
 	}
-
-	@Bean
-	public MeteoSimulator weatherSimulator() {
-		return new MeteoSimulator();
-	}
 }

@@ -1,13 +1,15 @@
 package com.example.SpringMetheoAPI.utils;
 
-import com.example.SpringMetheoAPI.api.model.MeteoData;
+import com.example.SpringMetheoAPI.model.MeteoData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.xssf.usermodel.*;
-import org.apache.poi.ss.usermodel.*;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 public class ExcelUtil {
     public static byte[] generateExcelFromMeteoData(List<MeteoData> meteoDataList) throws IOException {
@@ -33,5 +35,12 @@ public class ExcelUtil {
         workbook.write(outputStream);
         workbook.close();
         return outputStream.toByteArray();
+    }
+
+    public static HttpHeaders createExcelHeaders(String filename) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(filename).build());
+        return headers;
     }
 }

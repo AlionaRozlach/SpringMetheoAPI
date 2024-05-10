@@ -1,7 +1,7 @@
 package com.example.SpringMetheoAPI.service;
 
-import com.example.SpringMetheoAPI.api.model.MeteoData;
-import com.example.SpringMetheoAPI.api.repository.MeteoRepository;
+import com.example.SpringMetheoAPI.model.MeteoData;
+import com.example.SpringMetheoAPI.repository.MeteoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

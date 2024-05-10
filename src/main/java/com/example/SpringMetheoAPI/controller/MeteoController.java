@@ -1,7 +1,6 @@
-package com.example.SpringMetheoAPI.api.controller;
+package com.example.SpringMetheoAPI.controller;
 
-import com.example.SpringMetheoAPI.api.model.MeteoData;
-import com.example.SpringMetheoAPI.api.repository.MeteoRepository;
+import com.example.SpringMetheoAPI.model.MeteoData;
 import com.example.SpringMetheoAPI.service.MeteoService;
 import com.example.SpringMetheoAPI.simulator.MeteoSimulator;
 import com.example.SpringMetheoAPI.utils.ExcelUtil;
@@ -20,8 +19,8 @@ public class MeteoController {
     @Autowired
     private MeteoService meteoService;
 
-    @Autowired
-    private MeteoRepository meteoDataRepository;
+//    @Autowired
+//    private MeteoRepository meteoDataRepository;
 
     @Autowired
     private MeteoSimulator weatherSimulator;
@@ -29,18 +28,18 @@ public class MeteoController {
 
     @PostMapping("/save")
     public MeteoData saveMeteoData(@RequestBody MeteoData meteoData) {
-        return meteoDataRepository.save(meteoData);
+        return meteoService.saveMeteoData(meteoData);
     }
 
     @GetMapping("/all")
     public List<MeteoData> getAllMeteoData() {
-        return meteoDataRepository.findAll();
+        return meteoService.getAllMeteoData();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MeteoData> getMeteoDataById(@PathVariable(value = "id") String id) {
         try {
-            MeteoData meteoData = meteoDataRepository.findMeteoDataById(id);
+            MeteoData meteoData = meteoService.getMeteoDataById(id);
             if (meteoData != null) {
                 return ResponseEntity.ok().body(meteoData);
             } else {
@@ -58,19 +57,11 @@ public class MeteoController {
         try {
             List<MeteoData> meteoDataList = meteoService.getMeteoDataByTimeInterval(start, end);
             byte[] excelBytes = ExcelUtil.generateExcelFromMeteoData(meteoDataList);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-            headers.setContentDisposition(ContentDisposition.builder("attachment").filename("meteo_data3.xlsx").build());
-
+            String fileName = "meteo_data.xlsx";
+            HttpHeaders headers = ExcelUtil.createExcelHeaders(fileName);
             return ResponseEntity.ok().headers(headers).body(excelBytes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-    @GetMapping("/simulate")
-    public MeteoData simulateWeatherData() {
-        return weatherSimulator.generateWeatherData();
     }
 }
