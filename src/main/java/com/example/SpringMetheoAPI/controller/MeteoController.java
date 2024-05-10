@@ -19,12 +19,8 @@ public class MeteoController {
     @Autowired
     private MeteoService meteoService;
 
-//    @Autowired
-//    private MeteoRepository meteoDataRepository;
-
     @Autowired
     private MeteoSimulator weatherSimulator;
-
 
     @PostMapping("/save")
     public MeteoData saveMeteoData(@RequestBody MeteoData meteoData) {
@@ -38,16 +34,8 @@ public class MeteoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MeteoData> getMeteoDataById(@PathVariable(value = "id") String id) {
-        try {
             MeteoData meteoData = meteoService.getMeteoDataById(id);
-            if (meteoData != null) {
-                return ResponseEntity.ok().body(meteoData);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+            return ResponseEntity.ok().body(meteoData);
     }
 
     @GetMapping("/data")
