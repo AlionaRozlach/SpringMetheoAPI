@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class MeteoService {
+
     private final MeteoRepository meteoRepository;
 
     @Autowired
