@@ -2,6 +2,7 @@ package com.example.SpringMetheoAPI.controller;
 
 import com.example.SpringMetheoAPI.model.MeteoData;
 import com.example.SpringMetheoAPI.service.MeteoService;
+import com.example.SpringMetheoAPI.service.TemperaturePredictionService;
 import com.example.SpringMetheoAPI.simulator.MeteoSimulator;
 import com.example.SpringMetheoAPI.utils.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class MeteoController {
 
     @Autowired
     private MeteoService meteoService;
+
+    @Autowired
+    private TemperaturePredictionService temperaturePredictionService;
 
     @Autowired
     private MeteoSimulator weatherSimulator;
@@ -51,5 +55,10 @@ public class MeteoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/predictNext")
+    public double predictNextTemperature() {
+        return temperaturePredictionService.predictNextTemperature();
     }
 }

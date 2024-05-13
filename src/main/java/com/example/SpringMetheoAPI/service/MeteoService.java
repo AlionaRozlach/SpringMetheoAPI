@@ -1,6 +1,9 @@
 package com.example.SpringMetheoAPI.service;
 
+import com.example.SpringMetheoAPI.model.Humidity;
 import com.example.SpringMetheoAPI.model.MeteoData;
+import com.example.SpringMetheoAPI.model.Temperature;
+import com.example.SpringMetheoAPI.model.WindSpeed;
 import com.example.SpringMetheoAPI.repository.MeteoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -10,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MeteoService {
@@ -47,5 +51,23 @@ public class MeteoService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No MeteoData found in the specified time interval");
         }
         return result;
+    }
+
+    public List<Temperature> getTemperatureData() {
+        return meteoRepository.findAll().stream()
+                .map(MeteoData::getTemperature)
+                .collect(Collectors.toList());
+    }
+
+    public List<Humidity> getHumidityData() {
+        return meteoRepository.findAll().stream()
+                .map(MeteoData::getHumidity)
+                .collect(Collectors.toList());
+    }
+
+    public List<WindSpeed> getWindSpeedData() {
+        return meteoRepository.findAll().stream()
+                .map(MeteoData::getWindSpeed)
+                .collect(Collectors.toList());
     }
 }
