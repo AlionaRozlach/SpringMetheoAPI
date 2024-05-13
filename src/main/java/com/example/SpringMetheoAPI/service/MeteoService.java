@@ -52,22 +52,4 @@ public class MeteoService {
         }
         return result;
     }
-
-    public List<Temperature> getTemperatureData() {
-        return meteoRepository.findAll().stream()
-                .map(MeteoData::getTemperature)
-                .collect(Collectors.toList());
-    }
-
-    public List<Humidity> getHumidityData() {
-        return meteoRepository.findAll().stream()
-                .map(MeteoData::getHumidity)
-                .collect(Collectors.toList());
-    }
-
-    public List<WindSpeed> getWindSpeedData() {
-        return meteoRepository.findAll().stream()
-                .map(MeteoData::getWindSpeed)
-                .collect(Collectors.toList());
-    }
 }
